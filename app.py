@@ -63,13 +63,10 @@ setup_db()
 @app.route('/', methods=['GET', 'POST'])
 def index():
     conn = get_db_connection()
-    c = conn.cursor()
 
-    c.execute('SELECT * FROM categories ORDER BY name')
-    categories = c.fetchall()
-
-    c.execute('SELECT * FROM locations ORDER BY name')
-    locations = c.fetchall()
+    # Always explicitly select id and name!
+    categories = conn.execute('SELECT id, name FROM categories ORDER BY name').fetchall()
+    locations = conn.execute('SELECT id, name FROM locations ORDER BY name').fetchall()
 
     if request.method == 'POST':
         item = request.form['item']
@@ -78,13 +75,13 @@ def index():
         notes = request.form['notes']
         category_id = request.form['category']
 
-        c.execute('''
+        conn.execute('''
             INSERT INTO storage (item, location_id, spot, notes, category_id)
             VALUES (%s, %s, %s, %s, %s)
         ''', (item, location_id, spot, notes, category_id))
-
         conn.commit()
         conn.close()
+        
         return redirect('/list')
 
     conn.close()
