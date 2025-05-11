@@ -12,18 +12,18 @@
         <h1 style="text-align:center;">Edit Item</h1>
 
         <form method="post">
-            <input type="text" name="item" value="{{ item['item'] }}" required>
+            <input type="text" name="item" value="{{ item[1] }}" required>
             <select name="location" required>
                 {% for location in locations %}
-                    <option value="{{ location['id'] }}" {% if location['id'] == item['location_id'] %}selected{% endif %}>{{ location['name'] }}</option>
+                    <option value="{{ location[0] }}" {% if location[0] == item[2] %}selected{% endif %}>{{ location[1] }}</option>
                 {% endfor %}
             </select>            
-            <input type="text" name="spot" value="{{ item['spot'] }}">
-            <textarea name="notes">{{ item['notes'] }}</textarea>
+            <input type="text" name="spot" value="{{ item[3] }}">
+            <textarea name="notes">{{ item[4] }}</textarea>
 
             <select name="category" required>
                 {% for category in categories %}
-                    <option value="{{ category['id'] }}" {% if category['id'] == item['category_id'] %}selected{% endif %}>{{ category['name'] }}</option>
+                    <option value="{{ category[0] }}" {% if category[0] == item[5] %}selected{% endif %}>{{ category[1] }}</option>
                 {% endfor %}
             </select>            
 

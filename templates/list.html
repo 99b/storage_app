@@ -19,7 +19,7 @@
                 <select name="location" class="form-select" onchange="this.form.submit()">
                     <option value="">All Locations</option>
                     {% for location in locations %}
-                        <option value="{{ location['id'] }}" {% if location['id'] == location_filter %}selected{% endif %}>{{ location['name'] }}</option>
+                        <option value="{{ location[0] }}" {% if location[0] == location_filter %}selected{% endif %}>{{ location[1] }}</option>
                     {% endfor %}
                 </select>
                 
@@ -40,17 +40,17 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">{{ item['item'] }}</h5>
+                            <h5 class="card-title">{{ item[1] }}</h5>
                             <p class="card-text">
-                                <strong>Location:</strong> {{ item['location_name'] }}<br>
-                                <strong>Spot:</strong> {{ item['spot'] or 'N/A' }}<br>
-                                <strong>Notes:</strong> {{ item['notes'] or 'None' }}<br>
-                                <strong>Category:</strong> {{ item['category_name'] or 'Uncategorized' }}
+                                <strong>Location:</strong> {{ item[2] }}<br>
+                                <strong>Spot:</strong> {{ item[3] or 'N/A' }}<br>
+                                <strong>Notes:</strong> {{ item[4] or 'None' }}<br>
+                                <strong>Category:</strong> {{ item[5] or 'Uncategorized' }}
                             </p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="/edit/{{ item['id'] }}" class="btn btn-warning btn-sm">✏️ Edit</a>
-                            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-item-id="{{ item['id'] }}">🗑️ Delete</a>
+                            <a href="/edit/{{ item[0] }}" class="btn btn-warning btn-sm">✏️ Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-item-id="{{ item[0] }}">🗑️ Delete</a>
                         </div>
                     </div>
                 </div>
