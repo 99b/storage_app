@@ -17,7 +17,7 @@ def setup_db():
     # Create categories table
     c.execute('''
         CREATE TABLE IF NOT EXISTS categories (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             name TEXT UNIQUE NOT NULL
         );
     ''')
@@ -25,7 +25,7 @@ def setup_db():
     # Create locations table
     c.execute('''
         CREATE TABLE IF NOT EXISTS locations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             name TEXT UNIQUE NOT NULL
         );
     ''')
@@ -35,7 +35,7 @@ def setup_db():
         CREATE TABLE IF NOT EXISTS storage (
             id SERIAL PRIMARY KEY,
             item TEXT NOT NULL,
-            location_id INTEGER REFERENCES locations (id),
+            location_id INTEGER REFERENCES locations(id),
             spot TEXT,
             notes TEXT,
             category_id INTEGER REFERENCES categories(id)
