@@ -9,13 +9,13 @@ def get_db_connection():
     conn = psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require')
     return conn
 
-# Function to setup database tables
+# Setup database tables
 def setup_db():
     conn = get_db_connection()
-    c = conn.cursor()
+    cur = conn.cursor()
 
     # Create categories table
-    c.execute('''
+    cur.execute('''
         CREATE TABLE IF NOT EXISTS categories (
             id SERIAL PRIMARY KEY,
             name TEXT UNIQUE NOT NULL
@@ -23,7 +23,7 @@ def setup_db():
     ''')
 
     # Create locations table
-    c.execute('''
+    cur.execute('''
         CREATE TABLE IF NOT EXISTS locations (
             id SERIAL PRIMARY KEY,
             name TEXT UNIQUE NOT NULL
@@ -31,7 +31,7 @@ def setup_db():
     ''')
 
     # Create Storage Table
-    c.execute('''
+    cur.execute('''
         CREATE TABLE IF NOT EXISTS storage (
             id SERIAL PRIMARY KEY,
             item TEXT NOT NULL,
@@ -43,30 +43,35 @@ def setup_db():
     ''')
 
     # Insert initial categories
-    c.execute("INSERT INTO categories (name) VALUES ('Altro') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO categories (name) VALUES ('Viaggio') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO categories (name) VALUES ('Vestiti') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO categories (name) VALUES ('Altro') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO categories (name) VALUES ('Viaggio') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO categories (name) VALUES ('Vestiti') ON CONFLICT (name) DO NOTHING;")
 
     # Insert initial locations
-    c.execute("INSERT INTO locations (name) VALUES ('Solaio Nonno') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO locations (name) VALUES ('Garage Tatona') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO locations (name) VALUES ('Garage Tatina') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO locations (name) VALUES ('Solaio Nostro') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Solaio Nonno') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Garage Tatona') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Garage Tatina') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Solaio Nostro') ON CONFLICT (name) DO NOTHING;")
 
     conn.commit()
+    cur.close()
     conn.close()
 
 # Run the setup when app starts
 setup_db()
 
-# Home page to add new items
+# Home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
     conn = get_db_connection()
+    cur = conn.cursor()
 
-    # Always explicitly select id and name!
-    categories = conn.execute('SELECT id, name FROM categories ORDER BY name').fetchall()
-    locations = conn.execute('SELECT id, name FROM locations ORDER BY name').fetchall()
+    # Fetch categories and locations
+    cur.execute('SELECT id, name FROM categories ORDER BY name')
+    categories = cur.fetchall()
+
+    cur.execute('SELECT id, name FROM locations ORDER BY name')
+    locations = cur.fetchall()
 
     if request.method == 'POST':
         item = request.form['item']
@@ -75,37 +80,37 @@ def index():
         notes = request.form['notes']
         category_id = request.form['category']
 
-        conn.execute('''
+        cur.execute('''
             INSERT INTO storage (item, location_id, spot, notes, category_id)
             VALUES (%s, %s, %s, %s, %s)
         ''', (item, location_id, spot, notes, category_id))
+
         conn.commit()
+        cur.close()
         conn.close()
-        
         return redirect('/list')
 
+    cur.close()
     conn.close()
     return render_template('index.html', categories=categories, locations=locations)
 
-# Page to list all items
+# List page
 @app.route('/list')
 def list_items():
     q = request.args.get('q', '')
     location_filter = request.args.get('location', '')
     reset = request.args.get('reset', '')
-    
-    # If reset is clicked, clear both filters
+
     if reset:
         q = ''
         location_filter = ''
 
     conn = get_db_connection()
-    c = conn.cursor()
+    cur = conn.cursor()
 
-    c.execute('SELECT * FROM locations ORDER BY name')
-    locations = c.fetchall()
-    
-    # Base query for storage items
+    cur.execute('SELECT id, name FROM locations ORDER BY name')
+    locations = cur.fetchall()
+
     query = '''
         SELECT storage.id, storage.item, storage.spot, storage.notes,
                categories.name AS category_name,
@@ -115,10 +120,8 @@ def list_items():
         LEFT JOIN locations ON storage.location_id = locations.id
     '''
     params = []
-
     where_clauses = []
-    
-    # Apply filters if search query is provided
+
     if q:
         where_clauses.append("(storage.item ILIKE %s OR storage.notes ILIKE %s OR locations.name ILIKE %s)")
         params += [f'%{q}%', f'%{q}%', f'%{q}%']
@@ -132,9 +135,10 @@ def list_items():
 
     query += ' ORDER BY storage.item ASC'
 
-    c.execute(query, params)
-    items = c.fetchall()
+    cur.execute(query, params)
+    items = cur.fetchall()
 
+    cur.close()
     conn.close()
 
     return render_template('list.html', items=items, locations=locations, 
