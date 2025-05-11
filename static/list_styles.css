@@ -1,0 +1,163 @@
+/* Ensures all elements in the filter row are aligned and have consistent height */
+h1 {
+    color: #3b5333;
+    text-align: center;    
+}
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+form {
+    max-width: 600px;
+    margin: 20px auto;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    background: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+}
+strong {
+    color: #47aa4c;
+}
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #47aa4c;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+a:hover {
+    color: #3b5333; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #386739;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Style for the category list container */
+.category-list {
+    display: flex;  /* Enable flexbox layout */
+    flex-wrap: wrap;  /* Allow items to wrap onto multiple rows */
+    gap: 15px;  /* Space between items */
+    padding: 0;
+    list-style: none;  /* Remove bullet points */
+    margin: 0;
+}
+
+/* Style for each category item */
+.category-item {
+    width: 200px;  /* Set the width of each item (card) */
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+/* Optional: Style for the "Delete" link */
+.category-item a {
+    color: #e74c3c;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.category-item a:hover {
+    text-decoration: underline;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;  /* Evenly space out filters and buttons */
+    gap: 15px;  /* Space between items */
+    align-items: center;  /* Vertically align elements */
+    margin-bottom: 20px;  /* Space below the filter container */
+}
+
+/* Style for the filter select dropdowns and input */
+.filter-container .form-select, 
+.filter-container .form-control {
+    height: 38px; /* Ensure all filters have the same height */
+    line-height: 1.5; /* Align text properly */
+    width: 200px; /* Set a fixed width for the dropdown and input */
+    padding-left: 10px; /* Space for text inside the input */
+    margin: 5px;
+}
+
+/* Style for buttons (filter and reset) */
+.filter-container .btn {
+    height: 38px; /* Same height as filters */
+    line-height: 1.5;
+    width: 100px; /* Set a fixed width for the buttons */
+    font-size: 14px; /* Adjust button text size */
+    padding: 10 10px; /* Space inside the buttons */
+    margin: 5px;
+}
+
+/* Specific styles for the "Filter" button */
+.filter-container .btn-filter {
+    background-color: #47aa4c; /* Blue button */
+    color: white;
+}
+.filter-container .btn-filter:hover {
+    background-color: #3b5333; /* Blue button */
+    color: white;
+}
+
+/* Specific styles for the "Reset" button */
+.filter-container .btn-reset {
+    background-color: #e1e1e1; /* Blue button */
+    color: #47aa4c;
+}
+.filter-container .btn-reset:hover {
+    background-color: #e1e1e1; /* Blue button */
+    color: #3b5333;
+}
+
+/* Hover effects for buttons */
+.filter-container .btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+.modal-content {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.modal-header {
+    background-color: #f5c6cb;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    width: 120px;
+}
+.modal-footer .btn-secondary:hover {
+    background-color: #6c757d;
+    width: 120px;
+    text-decoration:underline;
+}
+
+.modal-footer .btn-danger {
+    background-color: #dc3545;
+    width: 120px;
+}

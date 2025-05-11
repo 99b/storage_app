@@ -1,0 +1,115 @@
+/* Ensures all elements in the filter row are aligned and have consistent height */
+h1 {
+    color: #3b5333;
+    text-align: center;    
+}
+h2 {
+    color: #3b5333;
+    text-align: center;    
+}
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+form {
+    max-width: 600px;
+    margin: 20px auto;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style for the category list container */
+.category-list {
+    display: flex;  /* Enable flexbox layout */
+    flex-wrap: wrap;  /* Allow items to wrap onto multiple rows */
+    gap: 15px;  /* Space between items */
+    padding: 0;
+    margin: 0;
+}
+
+/* Style for each category item */
+.category-item {
+    width: 200px;  /* Set the width of each item (card) */
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Optional: Style for the "Delete" link */
+.category-item a {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: normal;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.category-item a:hover {
+    text-decoration: underline;
+}
+
+/* Link style */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #386739;  /* Green color for links */
+    text-decoration: none;  /* Remove underline */
+}
+a:hover {
+    color: #32452c; /* Darker green when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+/* Button styles */
+button {
+    width: 200px;
+    padding: 10px;
+    background-color: #386739;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Hover effect for button */
+button:hover {
+    width: 200px;
+    padding: 10px;
+    background-color: #3b5333;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Category input field */
+input[name="category"] {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}

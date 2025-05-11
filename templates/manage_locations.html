@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='locations_styles.css') }}">
+    <title>Manage Locations</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <h1>Manage Locations</h1>
+
+    <!-- Form to add a new location -->
+    <form action="/add_location" method="POST">
+        <label for="location">Add New Location:</label>
+        <input type="text" name="location" id="location" required>
+        <button type="submit" class="button">Add Location</button>
+    </form>
+
+    <h2>Existing Locations</h2> 
+    <ul class="location-list">
+        {% for location in locations %}
+            <li class="location-item">
+                {{ location['name'] }}
+                <a href="/delete_location/{{ location['id'] }}">Delete</a>
+                <!-- <a href="/edit_location/{{ location['id'] }}">Edit</a> -->
+            </li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

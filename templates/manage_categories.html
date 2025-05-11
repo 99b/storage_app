@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='categories_styles.css') }}">
+    <title>Manage Categories</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <h1>Manage Categories</h1>
+
+    <!-- Form to add a new category -->
+    <form action="/add_category" method="POST">
+        <label for="category">Add New Category:</label>
+        <input type="text" name="category" id="category" required>
+        <button type="submit" class="button">Add Category</button>
+    </form>
+
+    <h2>Existing Categories</h2> 
+    <ul class="category-list">
+        {% for category in categories %}
+            <li class="category-item">
+                {{ category['name'] }}
+                <a href="/delete_category/{{ category['id'] }}">Delete</a>
+                <!-- <a href="/edit_category/{{ category['id'] }}">Edit</a> -->
+            </li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>
