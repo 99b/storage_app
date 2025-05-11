@@ -18,16 +18,16 @@
             <input type="text" name="item" placeholder="Item name" required>
             <select name="location" required>
                 {% for location in locations %}
-                    <option value="{{ location['id'] }}">{{ location['name'] }}</option>
+                    <option value="{{ location[0] }}">{{ location[1] }}</option>
                 {% endfor %}
             </select>            
-            
+
             <input type="text" name="spot" placeholder="Exact spot (optional)">
             <textarea name="notes" placeholder="Notes (optional)"></textarea>
         
             <select name="category" required>
                 {% for category in categories %}
-                    <option value="{{ category['id'] }}">{{ category['name'] }}</option>
+                    <option value="{{ category[0] }}">{{ category[1] }}</option>
                 {% endfor %}
             </select>            
     

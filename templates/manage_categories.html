@@ -21,8 +21,8 @@
     <ul class="category-list">
         {% for category in categories %}
             <li class="category-item">
-                {{ category['name'] }}
-                <a href="/delete_category/{{ category['id'] }}">Delete</a>
+                {{ category[1] }}
+                <a href="/delete_category/{{ category[0] }}">Delete</a>
                 <!-- <a href="/edit_category/{{ category['id'] }}">Edit</a> -->
             </li>
         {% endfor %}

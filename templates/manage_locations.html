@@ -22,8 +22,8 @@
     <ul class="location-list">
         {% for location in locations %}
             <li class="location-item">
-                {{ location['name'] }}
-                <a href="/delete_location/{{ location['id'] }}">Delete</a>
+                {{ location[1] }}
+                <a href="/delete_location/{{ location[0] }}">Delete</a>
                 <!-- <a href="/edit_location/{{ location['id'] }}">Edit</a> -->
             </li>
         {% endfor %}
