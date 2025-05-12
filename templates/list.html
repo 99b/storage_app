@@ -39,6 +39,14 @@
                 {% for item in items %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
+                        div class="card h-100">
+
+                        <!-- Image -->
+                        <img src="{{ url_for('static', filename=item[6] if item[6] else 'uploads/ph.png') }}" 
+                            class="card-img-top" alt="Item Image" 
+                            onerror="this.onerror=null;this.src='https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png';">
+                            style="object-fit:cover; height:200px;">
+
                         <div class="card-body">
                             <h5 class="card-title">{{ item[1] }}</h5>
                             <p class="card-text">

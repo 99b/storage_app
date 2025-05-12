@@ -1,8 +1,16 @@
 from flask import Flask, render_template, request, redirect
+import uuid
 import psycopg2
 import os
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+
+# Allowed image extensions
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Connect to the Database
 def get_db_connection():
@@ -82,12 +90,21 @@ def index():
         spot = request.form['spot']
         notes = request.form['notes']
         category_id = request.form['category']
-        image = request.form['image'] or None
+        
+        #Image Upload
+        image_file = request.file.get('image')
+        if image_file and allowed_file(image_file.filename):
+            filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image_file.save(image_path)
+            image_url = f'static/uploads/{filename}'
+        else:
+            image_url = 'static/placeholder.png'
 
         cur.execute('''
-            INSERT INTO storage (item, location_id, spot, notes, category_id)
+            INSERT INTO storage (item, location_id, spot, notes, category_id, image)
             VALUES (%s, %s, %s, %s, %s)
-        ''', (item, location_id, spot, notes, category_id))
+        ''', (item, location_id, spot, notes, category_id, image_url))
 
         conn.commit()
         cur.close()
@@ -118,7 +135,8 @@ def list_items():
     query = '''
         SELECT storage.id, storage.item, storage.spot, storage.notes,
                categories.name AS category_name,
-               locations.name AS location_name
+               locations.name AS location_name,
+               storage.image
         FROM storage
         LEFT JOIN categories ON storage.category_id = categories.id
         LEFT JOIN locations ON storage.location_id = locations.id
@@ -160,18 +178,27 @@ def edit_item(item_id):
     locations = c.fetchall()
     
     if request.method == 'POST':
-        item = request.form['item']
+        item_name = request.form['item']
         location_id = request.form['location']
         spot = request.form['spot']
         notes = request.form['notes']
         category_id = request.form['category']
-        image = request.form['image'] or None
+        image_file = request.files.get('image')
+
+        # Handle the image upload for the update
+        if image_file and allowed_file(image_file.filename):
+            filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image_file.save(image_path)
+            image_url = f'static/uploads/{filename}'
+        else:
+            image_url = item[6]  # Keep the existing image if no new one is uploaded
 
         c.execute('''
             UPDATE storage
-            SET item = %s, location_id = %s, spot = %s, notes = %s, category_id = %s
+            SET item = %s, location_id = %s, spot = %s, notes = %s, category_id = %s, image = %s
             WHERE id = %s
-        ''', (item, location_id, spot, notes, category_id, item_id))
+        ''', (item_name, location_id, spot, notes, category_id, image_url, item_id))
 
         conn.commit()
         conn.close()
@@ -224,7 +251,6 @@ def delete_category(category_id):
     conn.close()
     return redirect('/manage_categories')
 
-
 # Route to display locations and manage them
 @app.route('/manage_locations')
 def manage_locations():
@@ -239,10 +265,17 @@ def manage_locations():
 @app.route('/add_location', methods=['POST'])
 def add_location():
     name = request.form['location']
-    image = request.form['image'] or None
+    image_file = request.files.get('image')
+    if image_file and allowed_file(image_file.filename):
+        filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        image_file.save(image_path)
+        image_url = f'static/uploads/{filename}'
+    else:
+        image_url = 'static/placeholder.png'
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute('INSERT INTO locations (name, image) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (name, image))
+    c.execute('INSERT INTO locations (name, image) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (name, image_url))
     conn.commit()
     conn.close()
     return redirect('/manage_locations')

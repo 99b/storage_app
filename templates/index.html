@@ -13,7 +13,8 @@
     <a href='/manage_categories'>Manage Categories</a>
     <div class="container mt-4">
         <h1 style="text-align:center;">Add an Item to Storage</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
+
             <input type="text" name="item" placeholder="Item name" required>
 
             <!-- Location Dropdown-->
@@ -24,7 +25,8 @@
             </select>
 
             <!-- Image Upload -->
-            <input type="file" name="image">
+            <label for="image">Upload Image (optional):</label>
+            <input type="file" name="image" accept="image/*">
 
             <!-- Other Fields -->
             <input type="text" name="spot" placeholder="Exact spot (optional)">
