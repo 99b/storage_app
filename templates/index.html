@@ -9,22 +9,28 @@
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!--<a href="https://google.com" class="button">Go to Google</a>-->
     <a href="/manage_locations">Manage Locations</a>
     <a href='/manage_categories'>Manage Categories</a>
     <div class="container mt-4">
         <h1 style="text-align:center;">Add an Item to Storage</h1>
         <form method="post">
             <input type="text" name="item" placeholder="Item name" required>
+
+            <!-- Location Dropdown-->
             <select name="location" required>
                 {% for location in locations %}
                     <option value="{{ location[0] }}">{{ location[1] }}</option>
                 {% endfor %}
-            </select>            
+            </select>
 
+            <!-- Image Upload -->
+            <input type="file" name="image">
+
+            <!-- Other Fields -->
             <input type="text" name="spot" placeholder="Exact spot (optional)">
             <textarea name="notes" placeholder="Notes (optional)"></textarea>
         
+            <!-- Category Dropdown -->
             <select name="category" required>
                 {% for category in categories %}
                     <option value="{{ category[0] }}">{{ category[1] }}</option>
