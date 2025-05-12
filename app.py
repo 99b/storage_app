@@ -1,16 +1,8 @@
 from flask import Flask, render_template, request, redirect
-import uuid
 import psycopg2
 import os
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
-
-# Allowed image extensions
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Connect to the Database
 def get_db_connection():
@@ -20,52 +12,49 @@ def get_db_connection():
 # Setup database tables
 def setup_db():
     conn = get_db_connection()
-    c = conn.cursor()
+    cur = conn.cursor()
 
     # Create categories table
-    c.execute('''
+    cur.execute('''
         CREATE TABLE IF NOT EXISTS categories (
             id SERIAL PRIMARY KEY,
-            name TEXT UNIQUE NOT NULL,
-            image TEXT
+            name TEXT UNIQUE NOT NULL
         );
     ''')
 
     # Create locations table
-    c.execute('''
+    cur.execute('''
         CREATE TABLE IF NOT EXISTS locations (
             id SERIAL PRIMARY KEY,
-            name TEXT UNIQUE NOT NULL,
-            image TEXT
+            name TEXT UNIQUE NOT NULL
         );
     ''')
 
     # Create Storage Table
-    c.execute('''
+    cur.execute('''
         CREATE TABLE IF NOT EXISTS storage (
             id SERIAL PRIMARY KEY,
             item TEXT NOT NULL,
             location_id INTEGER REFERENCES locations(id),
             spot TEXT,
             notes TEXT,
-            category_id INTEGER REFERENCES categories(id),
-            image TEXT
+            category_id INTEGER REFERENCES categories(id)
         );
     ''')
 
     # Insert initial categories
-    c.execute("INSERT INTO categories (name) VALUES ('Altro') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO categories (name) VALUES ('Viaggio') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO categories (name) VALUES ('Vestiti') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO categories (name) VALUES ('Altro') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO categories (name) VALUES ('Viaggio') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO categories (name) VALUES ('Vestiti') ON CONFLICT (name) DO NOTHING;")
 
     # Insert initial locations
-    c.execute("INSERT INTO locations (name) VALUES ('Solaio Nonno') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO locations (name) VALUES ('Garage Tatona') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO locations (name) VALUES ('Garage Tatina') ON CONFLICT (name) DO NOTHING;")
-    c.execute("INSERT INTO locations (name) VALUES ('Solaio Nostro') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Solaio Nonno') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Garage Tatona') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Garage Tatina') ON CONFLICT (name) DO NOTHING;")
+    cur.execute("INSERT INTO locations (name) VALUES ('Solaio Nostro') ON CONFLICT (name) DO NOTHING;")
 
     conn.commit()
-    c.close()
+    cur.close()
     conn.close()
 
 # Run the setup when app starts
@@ -90,21 +79,11 @@ def index():
         spot = request.form['spot']
         notes = request.form['notes']
         category_id = request.form['category']
-        
-        #Image Upload
-        image_file = request.file.get('image')
-        if image_file and allowed_file(image_file.filename):
-            filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            image_file.save(image_path)
-            image_url = f'static/uploads/{filename}'
-        else:
-            image_url = 'static/placeholder.png'
 
         cur.execute('''
-            INSERT INTO storage (item, location_id, spot, notes, category_id, image)
+            INSERT INTO storage (item, location_id, spot, notes, category_id)
             VALUES (%s, %s, %s, %s, %s)
-        ''', (item, location_id, spot, notes, category_id, image_url))
+        ''', (item, location_id, spot, notes, category_id))
 
         conn.commit()
         cur.close()
@@ -120,20 +99,22 @@ def index():
 def list_items():
     q = request.args.get('q', '')
     location_filter = request.args.get('location', '')
+    reset = request.args.get('reset', '')
+
+    if reset:
+        q = ''
+        location_filter = ''
 
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # Get all locations for filter dropdown
     cur.execute('SELECT id, name FROM locations ORDER BY name')
     locations = cur.fetchall()
 
-    # Base query selecting all necessary fields, including image
     query = '''
         SELECT storage.id, storage.item, storage.spot, storage.notes,
-               COALESCE(categories.name, 'Uncategorized') AS category_name,
-               COALESCE(locations.name, 'Unknown') AS location_name,
-               storage.image
+               categories.name AS category_name,
+               locations.name AS location_name
         FROM storage
         LEFT JOIN categories ON storage.category_id = categories.id
         LEFT JOIN locations ON storage.location_id = locations.id
@@ -141,23 +122,17 @@ def list_items():
     params = []
     where_clauses = []
 
-    # Search filter
     if q:
-        where_clauses.append("""
-            (storage.item ILIKE %s OR storage.notes ILIKE %s OR locations.name ILIKE %s)
-        """)
+        where_clauses.append("(storage.item ILIKE %s OR storage.notes ILIKE %s OR locations.name ILIKE %s)")
         params += [f'%{q}%', f'%{q}%', f'%{q}%']
 
-    # Location filter
     if location_filter:
         where_clauses.append("storage.location_id = %s")
         params.append(location_filter)
 
-    # Add WHERE clauses if any filters are applied
     if where_clauses:
         query += ' WHERE ' + ' AND '.join(where_clauses)
 
-    # Order by item name
     query += ' ORDER BY storage.item ASC'
 
     cur.execute(query, params)
@@ -181,27 +156,17 @@ def edit_item(item_id):
     locations = c.fetchall()
     
     if request.method == 'POST':
-        item_name = request.form['item']
+        item = request.form['item']
         location_id = request.form['location']
         spot = request.form['spot']
         notes = request.form['notes']
         category_id = request.form['category']
-        image_file = request.files.get('image')
-
-        # Handle the image upload for the update
-        if image_file and allowed_file(image_file.filename):
-            filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            image_file.save(image_path)
-            image_url = f'static/uploads/{filename}'
-        else:
-            image_url = item[6]  # Keep the existing image if no new one is uploaded
 
         c.execute('''
             UPDATE storage
-            SET item = %s, location_id = %s, spot = %s, notes = %s, category_id = %s, image = %s
+            SET item = %s, location_id = %s, spot = %s, notes = %s, category_id = %s
             WHERE id = %s
-        ''', (item_name, location_id, spot, notes, category_id, image_url, item_id))
+        ''', (item, location_id, spot, notes, category_id, item_id))
 
         conn.commit()
         conn.close()
@@ -235,11 +200,10 @@ def manage_categories():
 # Route to manage adding categories
 @app.route('/add_category', methods=['POST'])
 def add_category():
-    name = request.form['category']
-    image = request.form['image'] or None
+    category_name = request.form['category']
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute('INSERT INTO categories (name, image) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (name, image))
+    c.execute('INSERT INTO categories (name) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (category_name,))
     conn.commit()
     conn.close()
     return redirect('/manage_categories')
@@ -254,6 +218,7 @@ def delete_category(category_id):
     conn.close()
     return redirect('/manage_categories')
 
+
 # Route to display locations and manage them
 @app.route('/manage_locations')
 def manage_locations():
@@ -267,18 +232,10 @@ def manage_locations():
 # Route to manage adding locations
 @app.route('/add_location', methods=['POST'])
 def add_location():
-    name = request.form['location']
-    image_file = request.files.get('image')
-    if image_file and allowed_file(image_file.filename):
-        filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        image_file.save(image_path)
-        image_url = f'static/uploads/{filename}'
-    else:
-        image_url = 'static/placeholder.png'
+    location_name = request.form['location']
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute('INSERT INTO locations (name, image) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (name, image_url))
+    c.execute('INSERT INTO locations (name) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (location_name,))
     conn.commit()
     conn.close()
     return redirect('/manage_locations')
