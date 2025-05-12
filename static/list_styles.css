@@ -8,6 +8,12 @@ body {
     padding: 20px;
     background-color: #f2f2f2;
 }
+.card-footer .btn-warning {
+    color: black !important;
+}
+.card-footer .btn-danger {
+    color: black !important;
+}
 form {
     max-width: 600px;
     margin: 20px auto;
