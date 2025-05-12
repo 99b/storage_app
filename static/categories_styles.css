@@ -1,11 +1,19 @@
 /* Ensures all elements in the filter row are aligned and have consistent height */
-h1 {
+.green h1 {
     color: #3b5333;
     text-align: center;    
 }
-h2 {
+.green h2 {
     color: #3b5333;
     text-align: center;    
+}
+select {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
 }
 body {
     font-family: Arial, sans-serif;
@@ -68,20 +76,20 @@ ul {
 }
 
 /* Link style */
-a {
+.green a {
     display: block;
     text-align: center;
     margin-top: 20px;
     color: #386739;  /* Green color for links */
     text-decoration: none;  /* Remove underline */
 }
-a:hover {
+.green a:hover {
     color: #32452c; /* Darker green when hovered */
     text-decoration: underline;  /* Add underline on hover */
 }
 
 /* Button styles */
-button {
+.green button {
     width: 200px;
     padding: 10px;
     background-color: #386739;
@@ -93,7 +101,7 @@ button {
 }
 
 /* Hover effect for button */
-button:hover {
+.green button:hover {
     width: 200px;
     padding: 10px;
     background-color: #3b5333;
