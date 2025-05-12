@@ -30,5 +30,17 @@
 
     <br>
     <a href="/">Back to Home</a>
+    <div>
+        <label for="themeSelect">Choose Theme:</label>
+        <select id="themeSelect" onchange="changeTheme()">
+          <option value="green">Green</option>
+          <option value="pink">Pink</option>
+          <option value="blue">Blue</option>
+          <option value="purple">Purple</option>
+          <option value="red">Red</option>
+        </select>
+    </div>
+    <!-- Link to the JavaScript file in the static folder -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

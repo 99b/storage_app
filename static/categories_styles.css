@@ -113,3 +113,192 @@ input[name="category"] {
     border: 1px solid #ccc;
     margin-bottom: 10px;
 }
+
+/* Pink Style*/
+.pink h1 {
+    color: #99459c;
+    text-align: center;    
+}
+.pink h2 {
+    color: #99459c;
+    text-align: center;    
+}
+
+/* Link style */
+.pink a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #dc74d9;  /* Green color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.pink a:hover {
+    color: #99459c; /* Darker green when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+/* Button styles */
+.pink button {
+    width: 200px;
+    padding: 10px;
+    background-color: #dc74d9;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Hover effect for button */
+.pink button:hover {
+    width: 200px;
+    padding: 10px;
+    background-color: #dc74d9;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Blue Style*/
+.blue h1 {
+    color: #517cc6;
+    text-align: center;    
+}
+.blue h2 {
+    color: #517cc6;
+    text-align: center;    
+}
+
+/* Link style */
+.blue a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #5aaecd;  /* Green color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.blue a:hover {
+    color: #517cc6; /* Darker green when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+/* Button styles */
+.blue button {
+    width: 200px;
+    padding: 10px;
+    background-color: #5aaecd;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Hover effect for button */
+.blue button:hover {
+    width: 200px;
+    padding: 10px;
+    background-color: #517cc6;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Purple Style*/
+.purple h1 {
+    color: #61299d;
+    text-align: center;    
+}
+.purple h2 {
+    color: #61299d;
+    text-align: center;    
+}
+
+/* Link style */
+.purple a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #9d76dc;  /* Green color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.purple a:hover {
+    color: #61299d; /* Darker green when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+/* Button styles */
+.purple button {
+    width: 200px;
+    padding: 10px;
+    background-color: #9d76dc;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Hover effect for button */
+.purple button:hover {
+    width: 200px;
+    padding: 10px;
+    background-color: #61299d;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Red Style*/
+.red h1 {
+    color: #b93939;
+    text-align: center;    
+}
+.red h2 {
+    color: #b93939;
+    text-align: center;    
+}
+
+/* Link style */
+.red a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #e78c46;  /* Green color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.red a:hover {
+    color: #b93939; /* Darker green when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+/* Button styles */
+.red button {
+    width: 200px;
+    padding: 10px;
+    background-color: #e78c46;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Hover effect for button */
+.red button:hover {
+    width: 200px;
+    padding: 10px;
+    background-color: #b93939;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+

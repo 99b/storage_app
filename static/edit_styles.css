@@ -1,3 +1,4 @@
+/* Green Theme */
 h1 {
     color: #3b5333;
     text-align: center;    
@@ -52,4 +53,156 @@ a:hover {
     text-align: center;
     margin-top: 20px;
     color: #3b5333;
+}
+
+/* Pink Theme */
+.pink h1 {
+    color: #99459c;
+    text-align: center;    
+}
+.pink button {
+    width: 100%;
+    padding: 10px;
+    background-color: #dc74d9;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.pink button:hover {
+    width: 100%;
+    padding: 10px;
+    background-color: #99459c;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.pink a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #dc74d9;
+}
+.pink a:hover {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #99459c;
+}
+
+/* Blue Theme */
+.blue h1 {
+    color: #517cc6;
+    text-align: center;    
+}
+.blue button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5aaecd;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.blue button:hover {
+    width: 100%;
+    padding: 10px;
+    background-color: #517cc6;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.blue a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #5aaecd;
+}
+.blue a:hover {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #517cc6;
+}
+
+/* Purple Theme */
+.purple h1 {
+    color: #61299d;
+    text-align: center;    
+}
+.purple button {
+    width: 100%;
+    padding: 10px;
+    background-color: #9d76dc;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.purple button:hover {
+    width: 100%;
+    padding: 10px;
+    background-color: #61299d;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.purple a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #9d76dc;
+}
+.purple a:hover {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #61299d;
+}
+
+/* Red Theme */
+.red h1 {
+    color: #b93939;
+    text-align: center;    
+}
+.red button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e78c46;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.red button:hover {
+    width: 100%;
+    padding: 10px;
+    background-color: #b93939;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.red a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #e78c46;
+}
+.red a:hover {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #b93939;
 }
