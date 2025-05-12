@@ -1,20 +1,20 @@
-// Function to change color and save it to localStorage
-function changeColor() {
-  const selectedColor = document.getElementById('colorPicker').value;
-  document.getElementById('title').style.color = selectedColor;
-
-  // Save the color in localStorage
-  localStorage.setItem('titleColor', selectedColor);
+// Function to change theme and save it to localStorage
+function changeTheme() {
+  const selectedTheme = document.getElementById('themeSelect').value;
+  document.body.className = selectedTheme;  // Add class to body to switch theme
+  
+  // Save the theme in localStorage
+  localStorage.setItem('theme', selectedTheme);
 }
 
-// Function to load saved color (if exists)
-function loadColor() {
-  const savedColor = localStorage.getItem('titleColor');
-  if (savedColor) {
-    document.getElementById('title').style.color = savedColor;
-    document.getElementById('colorPicker').value = savedColor;
+// Function to load the saved theme from localStorage (if exists)
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.getElementById('themeSelect').value = savedTheme;  // Select saved theme in dropdown
+    document.body.className = savedTheme;  // Apply saved theme to body
   }
 }
 
-// Run loadColor when page loads
-window.onload = loadColor;
+// Run loadTheme when page loads
+window.onload = loadTheme;

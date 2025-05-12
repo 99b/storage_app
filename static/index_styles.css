@@ -1,3 +1,4 @@
+/* Green Theme */
 h1 {
     color: #3b5333;
     text-align: center;    
@@ -63,3 +64,176 @@ a:hover {
     color: #3b5333; /* Darker blue when hovered */
     text-decoration: underline;  /* Add underline on hover */
 }
+
+/* Pink Theme */
+.pink h1 {
+    color: #99459c;
+    text-align: center;    
+}
+.pink button {
+    background-color: #dc74d9; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+}
+.pink button:hover {
+    background-color: #99459c; /* Darker blue when hovered */
+}
+.pink a.button {
+    background-color: #dc74d9; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+    width: 300px;
+}
+.pink a.button:hover {
+    background-color: #99459c; /* Darker blue when hovered */
+    color: white;
+}
+.pink a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #dc74d9;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.pink a:hover {
+    color: #99459c; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+*/Blue Theme*/
+.blue h1 {
+    color: #517cc6;
+    text-align: center;    
+}
+.blue button {
+    background-color: #5aaecd; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+}
+.blue button:hover {
+    background-color: #517cc6; /* Darker blue when hovered */
+}
+.blue a.button {
+    background-color: #5aaecd; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+    width: 300px;
+}
+.blue a.button:hover {
+    background-color: #517cc6; /* Darker blue when hovered */
+    color: white;
+}
+.blue a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #5aaecd;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.blue a:hover {
+    color: #517cc6; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+*/Purple Theme*/
+.purple h1 {
+    color: #61299d;
+    text-align: center;    
+}
+.purple button {
+    background-color: #9d76dc; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+}
+.purple button:hover {
+    background-color: #61299d; /* Darker blue when hovered */
+}
+.purple a.button {
+    background-color: #9d76dc; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+    width: 300px;
+}
+.purple a.button:hover {
+    background-color: #61299d; /* Darker blue when hovered */
+    color: white;
+}
+.purple a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #9d76dc;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.purple a:hover {
+    color: #61299d; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+*/Red Theme*/
+.red h1 {
+    color: #b93939;
+    text-align: center;    
+}
+.red button {
+    background-color: #e78c46; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+}
+.red button:hover {
+    background-color: #b93939; /* Darker blue when hovered */
+}
+.red a.button {
+    background-color: #e78c46; /* Blue color for the button */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;  /* Adjust padding to make the button larger */
+    border-radius: 4px;
+    width: 300px;
+}
+.red a.button:hover {
+    background-color: #b93939; /* Darker blue when hovered */
+    color: white;
+}
+.red a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #e78c46;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.red a:hover {
+    color: #b93939; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+

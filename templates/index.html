@@ -35,8 +35,16 @@
         </form>    
         <a href="/list">See all stored items</a>
     </div>
-    <label for="colorSelect">Choose color:</label>
-    <input type="color" id="colorPicker" onchange="changeColor()">
+    <div>
+        <label for="themeSelect">Choose Theme:</label>
+        <select id="themeSelect" onchange="changeTheme()">
+          <option value="green">Green</option>
+          <option value="pink">Pink</option>
+          <option value="blue">Blue</option>
+          <option value="purple">Purple</option>
+          <option value="red">Red</option>
+        </select>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
