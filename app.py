@@ -120,22 +120,19 @@ def index():
 def list_items():
     q = request.args.get('q', '')
     location_filter = request.args.get('location', '')
-    reset = request.args.get('reset', '')
-
-    if reset:
-        q = ''
-        location_filter = ''
 
     conn = get_db_connection()
     cur = conn.cursor()
 
+    # Get all locations for filter dropdown
     cur.execute('SELECT id, name FROM locations ORDER BY name')
     locations = cur.fetchall()
 
+    # Base query selecting all necessary fields, including image
     query = '''
         SELECT storage.id, storage.item, storage.spot, storage.notes,
-               categories.name AS category_name,
-               locations.name AS location_name,
+               COALESCE(categories.name, 'Uncategorized') AS category_name,
+               COALESCE(locations.name, 'Unknown') AS location_name,
                storage.image
         FROM storage
         LEFT JOIN categories ON storage.category_id = categories.id
@@ -144,17 +141,23 @@ def list_items():
     params = []
     where_clauses = []
 
+    # Search filter
     if q:
-        where_clauses.append("(storage.item ILIKE %s OR storage.notes ILIKE %s OR locations.name ILIKE %s)")
+        where_clauses.append("""
+            (storage.item ILIKE %s OR storage.notes ILIKE %s OR locations.name ILIKE %s)
+        """)
         params += [f'%{q}%', f'%{q}%', f'%{q}%']
 
+    # Location filter
     if location_filter:
         where_clauses.append("storage.location_id = %s")
         params.append(location_filter)
 
+    # Add WHERE clauses if any filters are applied
     if where_clauses:
         query += ' WHERE ' + ' AND '.join(where_clauses)
 
+    # Order by item name
     query += ' ORDER BY storage.item ASC'
 
     cur.execute(query, params)
