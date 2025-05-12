@@ -2,6 +2,9 @@ h1 {
     color: #3b5333;
     text-align: center;    
 }
+input[type="color"] {
+    cursor: pointer;
+}
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
