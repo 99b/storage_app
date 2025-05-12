@@ -113,7 +113,7 @@ ul {
 }
 
 /* Category input field */
-.green input[name="location"] {
+input[name="location"] {
     width: 200px;
     padding: 10px;
     font-size: 16px;
