@@ -12,49 +12,52 @@ def get_db_connection():
 # Setup database tables
 def setup_db():
     conn = get_db_connection()
-    cur = conn.cursor()
+    c = conn.cursor()
 
     # Create categories table
-    cur.execute('''
+    c.execute('''
         CREATE TABLE IF NOT EXISTS categories (
             id SERIAL PRIMARY KEY,
-            name TEXT UNIQUE NOT NULL
+            name TEXT UNIQUE NOT NULL,
+            image TEXT
         );
     ''')
 
     # Create locations table
-    cur.execute('''
+    c.execute('''
         CREATE TABLE IF NOT EXISTS locations (
             id SERIAL PRIMARY KEY,
-            name TEXT UNIQUE NOT NULL
+            name TEXT UNIQUE NOT NULL,
+            image TEXT
         );
     ''')
 
     # Create Storage Table
-    cur.execute('''
+    c.execute('''
         CREATE TABLE IF NOT EXISTS storage (
             id SERIAL PRIMARY KEY,
             item TEXT NOT NULL,
             location_id INTEGER REFERENCES locations(id),
             spot TEXT,
             notes TEXT,
-            category_id INTEGER REFERENCES categories(id)
+            category_id INTEGER REFERENCES categories(id),
+            image TEXT
         );
     ''')
 
     # Insert initial categories
-    cur.execute("INSERT INTO categories (name) VALUES ('Altro') ON CONFLICT (name) DO NOTHING;")
-    cur.execute("INSERT INTO categories (name) VALUES ('Viaggio') ON CONFLICT (name) DO NOTHING;")
-    cur.execute("INSERT INTO categories (name) VALUES ('Vestiti') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO categories (name) VALUES ('Altro') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO categories (name) VALUES ('Viaggio') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO categories (name) VALUES ('Vestiti') ON CONFLICT (name) DO NOTHING;")
 
     # Insert initial locations
-    cur.execute("INSERT INTO locations (name) VALUES ('Solaio Nonno') ON CONFLICT (name) DO NOTHING;")
-    cur.execute("INSERT INTO locations (name) VALUES ('Garage Tatona') ON CONFLICT (name) DO NOTHING;")
-    cur.execute("INSERT INTO locations (name) VALUES ('Garage Tatina') ON CONFLICT (name) DO NOTHING;")
-    cur.execute("INSERT INTO locations (name) VALUES ('Solaio Nostro') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO locations (name) VALUES ('Solaio Nonno') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO locations (name) VALUES ('Garage Tatona') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO locations (name) VALUES ('Garage Tatina') ON CONFLICT (name) DO NOTHING;")
+    c.execute("INSERT INTO locations (name) VALUES ('Solaio Nostro') ON CONFLICT (name) DO NOTHING;")
 
     conn.commit()
-    cur.close()
+    c.close()
     conn.close()
 
 # Run the setup when app starts
@@ -79,6 +82,7 @@ def index():
         spot = request.form['spot']
         notes = request.form['notes']
         category_id = request.form['category']
+        image = request.form['image'] or None
 
         cur.execute('''
             INSERT INTO storage (item, location_id, spot, notes, category_id)
@@ -161,6 +165,7 @@ def edit_item(item_id):
         spot = request.form['spot']
         notes = request.form['notes']
         category_id = request.form['category']
+        image = request.form['image'] or None
 
         c.execute('''
             UPDATE storage
@@ -200,10 +205,11 @@ def manage_categories():
 # Route to manage adding categories
 @app.route('/add_category', methods=['POST'])
 def add_category():
-    category_name = request.form['category']
+    name = request.form['category']
+    image = request.form['image'] or None
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute('INSERT INTO categories (name) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (category_name,))
+    c.execute('INSERT INTO categories (name, image) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (name, image))
     conn.commit()
     conn.close()
     return redirect('/manage_categories')
@@ -232,10 +238,11 @@ def manage_locations():
 # Route to manage adding locations
 @app.route('/add_location', methods=['POST'])
 def add_location():
-    location_name = request.form['location']
+    name = request.form['location']
+    image = request.form['image'] or None
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute('INSERT INTO locations (name) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (location_name,))
+    c.execute('INSERT INTO locations (name, image) VALUES (%s) ON CONFLICT (name) DO NOTHING;', (name, image))
     conn.commit()
     conn.close()
     return redirect('/manage_locations')
