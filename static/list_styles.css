@@ -1,5 +1,5 @@
 /* Ensures all elements in the filter row are aligned and have consistent height */
-h1 {
+.green h1 {
     color: #3b5333;
     text-align: center;    
 }
@@ -11,6 +11,14 @@ body {
 form {
     max-width: 600px;
     margin: 20px auto;
+}
+select {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
 }
 input[type="text"] {
     width: 100%;
@@ -28,21 +36,21 @@ li {
     border-radius: 8px;
     box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
 }
-strong {
+.green strong {
     color: #47aa4c;
 }
-a {
+.green a {
     display: block;
     text-align: center;
     margin-top: 20px;
     color: #47aa4c;  /* Blue color for links */
     text-decoration: none;  /* Remove underline */
 }
-a:hover {
+.green a:hover {
     color: #3b5333; /* Darker blue when hovered */
     text-decoration: underline;  /* Add underline on hover */
 }
-button {
+.green button {
     width: 100%;
     padding: 10px;
     background-color: #386739;
@@ -114,21 +122,21 @@ button {
 }
 
 /* Specific styles for the "Filter" button */
-.filter-container .btn-filter {
+.green .filter-container .btn-filter {
     background-color: #47aa4c; /* Blue button */
     color: white;
 }
-.filter-container .btn-filter:hover {
+.green .filter-container .btn-filter:hover {
     background-color: #3b5333; /* Blue button */
     color: white;
 }
 
 /* Specific styles for the "Reset" button */
-.filter-container .btn-reset {
+.green .filter-container .btn-reset {
     background-color: #e1e1e1; /* Blue button */
     color: #47aa4c;
 }
-.filter-container .btn-reset:hover {
+.green .filter-container .btn-reset:hover {
     background-color: #e1e1e1; /* Blue button */
     color: #3b5333;
 }
@@ -160,4 +168,200 @@ button {
 .modal-footer .btn-danger {
     background-color: #dc3545;
     width: 120px;
+}
+
+/* Pink Theme */
+.pink h1 {
+    color: #99459c;
+    text-align: center;    
+}
+.pink strong {
+    color: #dc74d9;
+}
+.pink a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #dc74d9;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.pink a:hover {
+    color: #99459c; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+.pink button {
+    width: 100%;
+    padding: 10px;
+    background-color: #dc74d9;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Specific styles for the "Filter" button */
+.pink .filter-container .btn-filter {
+    background-color: #dc74d9; /* Blue button */
+    color: white;
+}
+.pink .filter-container .btn-filter:hover {
+    background-color: #99459c; /* Blue button */
+    color: white;
+}
+
+/* Specific styles for the "Reset" button */
+.pink .filter-container .btn-reset {
+    background-color: #e1e1e1; /* Blue button */
+    color: #dc74d9;
+}
+.pink .filter-container .btn-reset:hover {
+    background-color: #e1e1e1; /* Blue button */
+    color: #99459c;
+}
+
+/* Blue Theme */
+.blue h1 {
+    color: #517cc6;
+    text-align: center;    
+}
+.blue strong {
+    color: #5aaecd;
+}
+.blue a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #5aaecd;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.blue a:hover {
+    color: #517cc6; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+.blue button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5aaecd;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Specific styles for the "Filter" button */
+.blue .filter-container .btn-filter {
+    background-color: #5aaecd; /* Blue button */
+    color: white;
+}
+.blue .filter-container .btn-filter:hover {
+    background-color: #517cc6; /* Blue button */
+    color: white;
+}
+
+/* Specific styles for the "Reset" button */
+.blue .filter-container .btn-reset {
+    background-color: #e1e1e1; /* Blue button */
+    color: #5aaecd;
+}
+.blue .filter-container .btn-reset:hover {
+    background-color: #e1e1e1; /* Blue button */
+    color: #517cc6;
+}
+
+/* Purple Theme */
+.purple h1 {
+    color: #61299d;
+    text-align: center;    
+}
+.purple strong {
+    color: #9d76dc;
+}
+.purple a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #9d76dc;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.purple a:hover {
+    color: #61299d; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+.purple button {
+    width: 100%;
+    padding: 10px;
+    background-color: #9d76dc;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Specific styles for the "Filter" button */
+.purple .filter-container .btn-filter {
+    background-color: #9d76dc; /* Blue button */
+    color: white;
+}
+.purple .filter-container .btn-filter:hover {
+    background-color: #61299d; /* Blue button */
+    color: white;
+}
+
+/* Specific styles for the "Reset" button */
+.purple .filter-container .btn-reset {
+    background-color: #e1e1e1; /* Blue button */
+    color: #9d76dc;
+}
+.purple .filter-container .btn-reset:hover {
+    background-color: #e1e1e1; /* Blue button */
+    color: #61299d;
+}
+
+/* Red Theme */
+.red h1 {
+    color: #b93939;
+    text-align: center;    
+}
+.red strong {
+    color: #e78c46;
+}
+.red a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #e78c46;  /* Blue color for links */
+    text-decoration: none;  /* Remove underline */
+}
+.red a:hover {
+    color: #b93939; /* Darker blue when hovered */
+    text-decoration: underline;  /* Add underline on hover */
+}
+.red button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e78c46;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Specific styles for the "Filter" button */
+.red .filter-container .btn-filter {
+    background-color: #e78c46; /* Blue button */
+    color: white;
+}
+.red .filter-container .btn-filter:hover {
+    background-color: #b93939; /* Blue button */
+    color: white;
+}
+
+/* Specific styles for the "Reset" button */
+.red .filter-container .btn-reset {
+    background-color: #e1e1e1; /* Blue button */
+    color: #e78c46;
+}
+.red .filter-container .btn-reset:hover {
+    background-color: #e1e1e1; /* Blue button */
+    color: #b93939;
 }
